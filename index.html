@@ -1,73 +1,169 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<title>Tom & Jerry</title>    
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        .array-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .element {
+            background: #e0f7fa;
+            padding: 10px 20px;
+            border: 2px solid #006064;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .log {
+            background: #7fa2be;
+            padding: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #333;
+        }
+    </style>
 </head>
+
 <body>
-<h1>First Series</h1>    
-<table border="1">
+    <h1>Javascript Array Methods</h1>
+    <h3>Current 'RSVP for Happy Hour': </h3>
 
-    <tr>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Type</th>
-        <th>ImageDesription</th>
-    </tr>
+    <div id="visualArray" class="array-container"></div>
+    <div id="outputString"></div>
+   
+    <hr>
+<!-- var friends = ["Andy", "John", "Joseph", "Amy", "David"] -->
 
-    <tr>
-        <th>
-            <img
-            src="https://images.unsplash.com/photo-1477764250597-dffe9f601ae8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHRpZ2VyfGVufDB8fDB8fHww"
-            width="200"
-            height="140"
-            >
-        </th>
-        <th>
-            Tiger
-        </th>
-        <th>
-            animal
-        </th>
-        <th>
-            Tiger aura farming
-        </th>
-    </tr>
-    <tr>
-        <th>
-            <img
-            src="https://media.istockphoto.com/id/138216034/photo/venus-fly-trap.webp?a=1&b=1&s=612x612&w=0&k=20&c=_G1DSkrszPEeokN_GZtUsnJLzSj3yxB5t7-H7YMAHSk="
-            width="200"
-            height="140"
-            >
-        </th>
-        <th>
-            Flytrap
-        </th>
-        <th>
-            Plant
-        </th>
-        <th>
-           Flytrap eating a fly
-        </th>
-    </tr>
-    <tr>
-        <th>
-            <img
-            src="https://plus.unsplash.com/premium_photo-1679329103267-624f9775f317?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dm9sY2Fub3xlbnwwfHwwfHx8MA%3D%3D"
-            width="200"
-            height="140"
-            >
-        </th>
-        <th>
-            Volcano
-        </th>
-        <th>
-            Landform
-        </th>
-        <th>
-           Volcano eruptig
-        </th>
-    </tr>
+<!-- friends.push("Cathy") -->
+<button onclick="demoPush()">Push (Add to End)</button>
+<!-- ["Andy", "John", "Joseph", "Amy", "David", "Cathy"] -->
 
-</table>
+<!-- friends.pop() -->
+<button onclick="demoPop()">Pop (Remove Last)</button> 
+<!-- ["Andy", "John", "Joseph", "Amy", "David"] -->
+
+<!-- firends.unshift("Alex") -->
+<button onclick="demoUnshift()">Unshift (Add to Start)</button>
+<!-- ["Alex", "Andy", "John", "Joseph", "Amy", "David"] -->
+
+<!-- friends.shift() -->
+<button onclick="demoShift()">Shift (Remove First)</button>
+<!-- ["Andy", "John", "Joseph", "Amy", "David"] --> 
+
+<!--  -->
+<button onclick="demoSplice()">Splice (Insert at 3)</button>
+<!--  -->
+
+<!-- friends.sort() -->
+<button onclick="demoSort()">Sort (A-Z)</button>
+<!-- ["Amy", "Andy", "David", "John", "Joseph"] -->
+
+<!-- friends.reverse() -->
+<button onclick="demoRverse()">Reverse (Z-A)</button>
+<!-- ["Joseph", "John", "David", "Andy", "Amy"] -->
+
+<div class="log" id="actionLog">Action Log: Let's Go!!!</div>
+<script>
+        var friends_for_happy_hour = ["Andy", "John", "Joseph", "Amy", "David", "Tom", "Jerry"];
+        // Human:               Person  1       2        3         4      5
+        // Computers: 
+         
+        function updateDisplayToday(action_for_happy_hour){
+            const container = document.getElementById('visualArray');
+            container.innerHTML = '';
+
+            // This looks through our friends for happy hour array.
+            /*
+            1. For every person in the list it runs the code inside our curly brackets.
+            2. It gives us the friends_for_happy_hour's name (friends) and their position 
+            in the list (index).
+            */
+            friends_for_happy_hour.forEach((friends, index)=> {
+
+                /* This creates a brand new, empty <div> element in our computer's memory.
+                    It is not visible on our screen.    
+                */
+                let div_today = document.createElement('div');
+
+                //This assigns the CSS class "element" to the new div.
+                // so that we can style later.
+                //<div class="element"></div>
+                div_today.className = 'element';
+
+                // this fills our div with text.
+                //If the first friend is Andy, then it wil set the text to "0: Andy"
+                div_today.innerText = `${index}: ${friends}`;
+
+                //This is our final touch. 
+                //1. It will take that new div
+                //2. It will stick inside an existing element on our page (the container)
+                //3. This is the moment when the friend's name actually appears on our screen 
+                container.appendChild(div_today);
+
+                document.getElementById('outputString').innerText = `Friends Coming for Happy Hour: ["${friends_for_happy_hour.join('", "')}"]`;
+
+
+                document.getElementById('actionLog').innerText = `Action: ${action_for_happy_hour}`;
+
+                document.getElementById('actionLog').innerText += `, Array Length: ${friends_for_happy_hour}`
+            });
+
+        }                  
+        updateDisplayToday("Page Loaded")
+
+        function demoPush(){
+            friends_for_happy_hour.push("Jack");
+            updateDisplayToday("push('Jack')");
+            //
+        }
+
+        function demoPop(){
+            //["Andy", "John", "Joseph", "Amy", "David", "Tom", "Jerry"]
+            friends_for_happy_hour.pop()
+            updateDisplayToday(`pop() -> Removed ${friend_not_Coming}`)
+            //1. frined_not_coming will first store Jerry who is getting removed from our list 
+            //1. It will show: Pop -> Removed Jerry
+
+            //2. Our list will get updated: ["Andy", "John", "Joseph", "Amy", "David", "Tom"]
+            // If we click the pop()button again, then 
+                //a. friend_not_coming will be updated 
+                //b. friend_not_coming will store "Tom" (which is the last eement)
+                //2. It will show: pop()-> Removed Tom
+        }
+
+        function demoUnshift(){
+            friends_for_happy_hour.unshift("Billy");
+            updateDisplayToday("unshift('Billy')")
+        }
+
+        function demoShift(){
+            friend_not_coming_priority = friends_for_happy_hour.shift()
+            updateDisplayToday(`shift() -> Removed ${friend_not_coming_priority}`)
+
+        }
+
+        function demoSort(){
+            friends_for_happy_hour.sort()
+             updateDisplayToday("sort()")
+        }
+
+        function demoRverse(){
+            friends_for_happy_hour.reverse()
+             updateDisplayToday("reverse()")
+        }
+
+    </script>
 </body>
-</html>
